@@ -5,6 +5,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @books = @user.books
     @book = Book.new
+    #@book = Book.all#books/_indexに渡す値
   end
 
   def index
@@ -13,6 +14,10 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
+    if @user != current_user
+      redirect_to user_path#(current_user.id)
+    end
   end
 
   def update
