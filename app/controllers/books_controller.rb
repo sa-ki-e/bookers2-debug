@@ -5,6 +5,7 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
      @user = @book.user
      @books = Book.new#renderへ渡す値
+     @book_comment = BookComment.new#コメントを投稿するためのインスタンス変数
   end
 
   def index
@@ -48,12 +49,12 @@ class BooksController < ApplicationController
   def book_params
     params.require(:book).permit(:title, :body)
   end
-  
+
   def ensure_correct_user
     @book = Book.find(params[:id])
     unless @book.user == current_user
     redirect_to books_path
     end
   end
-  
+
 end
