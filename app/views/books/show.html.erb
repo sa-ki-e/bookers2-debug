@@ -56,7 +56,7 @@
       </p>
       <p>
         <%= form_with model: [@book, @book_comment] do |f| %>
-        <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+        <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに", class: "w-100" %><!--←class横幅の指定-->
         <%= f.submit "送信する" %>
         <% end %>
       </p>
