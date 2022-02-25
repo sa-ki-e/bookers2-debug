@@ -1,4 +1,7 @@
 class RelationshipsController < ApplicationController
+  before_action :authenticate_user!
+  
+  
   
   #フォローする
   def create
@@ -12,6 +15,7 @@ class RelationshipsController < ApplicationController
     redirect_to request.referer
   end
   
+  
   #フォロー一覧
   def followings
     user = User.find(params[:user_id])
@@ -23,5 +27,6 @@ class RelationshipsController < ApplicationController
     user = User.find(params[:user_id])
     @users = user.followers
   end
+  
   
 end

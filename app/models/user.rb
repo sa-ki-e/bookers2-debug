@@ -31,7 +31,7 @@ class User < ApplicationRecord
   profile_image.variant(resize_to_limit: [x,y]).processed
   end
   
-  #|フォロー機能のメソッド|
+  #|フォロー機能のメソッド|インスタンスメソッド
   #フォローしたときの処理
   def follow(user_id)
     relationships.create(followed_id: user_id)
