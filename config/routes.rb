@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :users, only: [:index,:show,:edit,:update] do
-  get "users/:id/followings" => "relationships#followings", as: "followings"
-  get "users/:id/followers" => "relationships#followers", as: "followers"
+  get "followings" => "relationships#followings", as: "followings"
+  get "followers" => "relationships#followers", as: "followers"
     resource :relationships, only: [:create, :destroy]
   end
     

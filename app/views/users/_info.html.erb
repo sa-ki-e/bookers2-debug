@@ -10,11 +10,11 @@
   </tr>
   <tr>
     <th>follows</th>
-    <th><%= link_to user.followings.count %></th><!--user_followings_path(user.id),-->
+    <th><%= link_to user.followings.count %></th><!--followings_path(user.id),ここ質問する-->
   </tr>
   <tr>
     <th>followers</th>
-    <th><%= link_to user.followers.count %></th><!--followers_path(user.id),
+    <th><%= link_to user.followers.count %></th><!--followers_path(user.id), ここも-->
   </tr>
 </table>
 
@@ -35,5 +35,5 @@
     <botton class="btn btn-success">フォローする</botton>
   <% end %>
   <% end %>
-  
+
 </div>
