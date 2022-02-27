@@ -19,7 +19,7 @@
           フォロー外す
           <% end %>
         <% else %>
-          <%= link_to user_relationships_path(user.id), method: :post do %>
+          <%= link_to relationships_path(user.id), method: :post do %>
           フォローする
         <% end %>
         <% end %>

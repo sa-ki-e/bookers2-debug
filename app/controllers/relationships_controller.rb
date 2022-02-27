@@ -18,15 +18,21 @@ class RelationshipsController < ApplicationController
 
   #フォロー一覧
   def followings
-    user = User.find(params[:user_id])
+    user = User.find(params[:relationship][:follow_id])
     @users = user.followings
   end
 
   #フォロワー一覧
   def followers
-    user = User.find(params[:user_id])
+    user = User.find(params[:relationship][:follow_id])
     @users = user.followers
   end
 
-  
+  private
+
+  def relationships_params
+    params.require(:user).permit(:follower_id, :followed_id)
+  end
+
+
 end

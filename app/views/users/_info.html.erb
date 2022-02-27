@@ -10,11 +10,11 @@
   </tr>
   <tr>
     <th>follows</th>
-    <th><%= link_to user.followings.count %></th><!--followings_path(user.id),ここ質問する-->
+    <th><%= link_to user.followings.count, followings_user_path(user.id)  %></th><!--followings_path(user.id),ここ質問する-->
   </tr>
   <tr>
     <th>followers</th>
-    <th><%= link_to user.followers.count %></th><!--followers_path(user.id), ここも-->
+    <th><%= link_to user.followers.count, followers_user_path(user.id) %></th><!--followers_path(user.id), ここも-->
   </tr>
 </table>
 
@@ -31,7 +31,7 @@
     <botton class="btn btn-primary">フォロー外す</botton>
     <% end %>
   <% else %>
-    <%= link_to user_relationships_path(user.id), method: :post do %>
+    <%= link_to relationships_path(user.id), method: :post do %>
     <botton class="btn btn-success">フォローする</botton>
   <% end %>
   <% end %>
