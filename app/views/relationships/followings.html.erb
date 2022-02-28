@@ -1,4 +1,4 @@
-<% if @users.exists? %>
+<% if @user.exists? %>
 <h1>Follow Users</h1>
 <table class='table'>
   <thead>
@@ -11,7 +11,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @users.each do |user| %>
+    <% @user.each do |user| %>
     <tr>
       <td><%= image_tag user.get_profile_image(50,50) %></td>
       <td><%= user.name %></td>
