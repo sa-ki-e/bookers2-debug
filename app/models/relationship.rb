@@ -1,13 +1,13 @@
 class Relationship < ApplicationRecord
   
-  belongs_to :user
-  belongs_to :follow, class_name: "User"
+  belongs_to :follower, class_name: "User"
+  belongs_to :followed, class_name: "User"
   
   # belongs_to :follower, class_name: "User" #フォローするユーザー
   # belongs_to :followed, class_name: "User" #フォローされるユーザー
   
-  validates :user_id, presence: true
-  validates :follow_id, presence: true
+  # validates :user_id, presence: true
+  # validates :follow_id, presence: true
 
   #validates :follower_id, uniqueness: { scope: :followed_id }
 #参考記事　https://tech-essentials.work/course_outputs/165

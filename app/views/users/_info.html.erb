@@ -10,29 +10,34 @@
   </tr>
   <tr>
     <th>follows</th>
-    <th><%= link_to user.following.count, followings_user_path(user.id) %></th><!--followings_path(user.id),ここ質問する-->
+    <th><%= link_to user.followings.count, user_followings_path(user) %></th><!--followings_path(user.id),ここ質問する-->
   </tr>
   <tr>
     <th>followers</th>
-    <th><%= link_to user.followers.count, followers_user_path(user.id) %></th><!--followers_path(user.id), ここも-->
+    <th><%= link_to user.followers.count, user_followers_path(user) %></th><!--followers_path(user.id), ここも-->
   </tr>
 </table>
 
 <div class='row'>
-  <% if user == current_user %>
+  <% if current_user != user %>
+  
+    <td><%= render "relationships/btn", user: user %></td>
+  
+  <% else %>
     <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block edit_user_#{user.id}" do %>
       <i class="fas fa-user-cog"></i>
     <% end %>
   <% end %>
-
-  <% if current_user.following?(user) %>
-    <%= link_to user_relationships_path(user.id), method: :delete do %>
-    <botton class="btn btn-primary">フォロー外す</botton>
-    <% end %>
-  <% else %>
-    <%= link_to relationships_path(user.id), method: :post do %>
-    <botton class="btn btn-success">フォローする</botton>
-    <% end %>
-  <% end %>
-
 </div>
+
+<!--  <%# if current_user.following?(user) %>-->
+<!--    <%#= link_to user_relationships_path(user.id), method: :delete do %>-->
+<!--    <botton class="btn btn-primary">フォロー外す</botton>-->
+<!--    <%# end %>-->
+<!--  <%# else %>-->
+<!--    <%#= link_to relationships_path(user.id), method: :post do %>-->
+<!--    <botton class="btn btn-success">フォローする</botton>-->
+<!--    <%# end %>-->
+<!--  <%# end %>-->
+
+<!--</div>-->

@@ -1,44 +1,28 @@
 class RelationshipsController < ApplicationController
-  before_action :set_user
+  before_action :authenticate_user!
   
   def create
-    following = current_user.follow(@user)
-    if following.save
-      flash[:success] = "ユーザーをフォローしました"
-      redirect_to users_path
-    else
-      flash.now[:alert] = "ユーザーのフォローに失敗しました"
-      redirect_to @user
-    end
+    user = User.find(params[:user_id])
+    current_user.follow(user)
+    redirect_to request.referer
   end
 
   def destroy
-    if following = current_user.unfollow(@user)
-      flash[:success] = "ユーザーのフォローを解除しました"
-      redirect_to @user
-    else
-      flash.now[:alert] = "ユーザーのフォロー解除に失敗しました"
-      redirect_to @user
-    end
+    user = User.find(params[:user_id])
+    current_user.unfollow(user)
+    redirect_to request.referer
   end
 
   #フォロー一覧
   def followings
-   user = User.find(params[:id])
-   @users = user.followings
+    user = User.find(params[:user_id])
+    @users = user.followings
   end
 
   #フォロワー一覧
   def followers
-    user = User.find(params[:id])
+    user = User.find(params[:user_id])
     @users = user.followers
-  end
-
-
-  private
-
-  def set_user
-    @user = User.find(params[:follow_id])
   end
 end
 
