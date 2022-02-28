@@ -9,15 +9,21 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :book_comments, dependent: :destroy
   
-  #フォローした、されたの関係
-  has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
-  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  # #フォローした、されたの関係
+  # has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  # has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  
+  # #一覧画面で使う
+  # has_many :followings, through: :relationships, source: :followed
+  # has_many :followers, through: :reverse_of_relationships, source: :follower
+  
+  has_many :relationships
+  has_many :following, through: :relationships, source: :follow
+  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "follow_id"
+  has_many :followers, through: :reverse_of_relationships, source: :user
   
   
-  #一覧画面で使う
-  has_many :followings, through: :relationships, source: :followed
-  has_many :followers, through: :reverse_of_relationships, source: :follower
-
+  
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :introduction, length: { maximum: 50 }
 
@@ -32,19 +38,33 @@ class User < ApplicationRecord
   end
   
   #|フォロー機能のメソッド|インスタンスメソッド
-  #フォローしたときの処理
-  def follow(user_id)
-    relationships.create(followed_id: user_id)
+  # #フォローしたときの処理
+  # def follow(user_id)
+  #   relationships.create(followed_id: user_id)
+  # end
+  # #フォローを外すときの処理
+  # def unfollow(user_id)
+  #   relationships.find_by(followed_id: user_id).destroy
+  # end
+  # #フォローしているか判定
+  # def following?(user)
+  #   followings.include?(user)
+  # end
+  
+  def follow(other_user)
+    unless self == other_user
+      self.relationships.find_or_create_by(follow_id: other_user.id)
+    end
   end
   
-  #フォローを外すときの処理
-  def unfollow(user_id)
-    relationships.find_by(followed_id: user_id).destroy
+  def unfollow(other_user)
+    relationship = self.relationships.find_by(follow_id: other_user.id)
+    relationship.destroy if relationship
   end
   
-  #フォローしているか判定
-  def following?(user)
-    followings.include?(user)
+  def following?(other_user)
+    self.followings.include?(other_user)
   end
+  
   
 end

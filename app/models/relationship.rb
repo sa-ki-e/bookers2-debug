@@ -1,12 +1,15 @@
 class Relationship < ApplicationRecord
   
-  belongs_to :follower, class_name: "User" #フォローするユーザー
-  belongs_to :followed, class_name: "User" #フォローされるユーザー
+  belongs_to :user
+  belongs_to :follow, class_name: "User"
   
-  validates :follower_id, presence: true
-  validates :followed_id, presence: true
+  # belongs_to :follower, class_name: "User" #フォローするユーザー
+  # belongs_to :followed, class_name: "User" #フォローされるユーザー
+  
+  validates :user_id, presence: true
+  validates :follow_id, presence: true
 
-  validates :follower_id, uniqueness: { scope: :followed_id }
+  #validates :follower_id, uniqueness: { scope: :followed_id }
 #参考記事　https://tech-essentials.work/course_outputs/165
 # この記述でfollower_idとfollowed_idの組をuniqueにした。１通りのみ許可のバリデーション。
 # uniquenessはRails Validationヘルパーの一つで属性の値が一意（unique）であり重複していないことを検証する。
