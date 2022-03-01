@@ -10,15 +10,15 @@ class Book < ApplicationRecord
   end
   
   #search機能のメソッド
-  def self.looks(seaches,words)
-    if searshes == "forward_match"
-      @book = Book.where("title LIKE ?", "#{words}%")
-    elsif searshes == "backward_match"
-      @book = Book.where("title LIKE ?", "%#{words}")
-    elsif searshes == "perfect_match"
-      @@book = Book.where("title LIKE ?", "#{words}")
-    elsif searshes == "partial_match"
-      @book = Book.where("title LIKE ?", "%#{words}%")
+  def self.looks(searches,words)
+    if searches == "forward_match"
+      @books = Book.where("title LIKE ?", "#{words}%")
+    elsif searches == "backward_match"
+      @books = Book.where("title LIKE ?", "%#{words}")
+    elsif searches == "perfect_match"
+      @books = Book.where("title LIKE ?", "#{words}")
+    elsif searches == "partial_match"
+      @books = Book.where("title LIKE ?", "%#{words}%")
     end
   end
 end
