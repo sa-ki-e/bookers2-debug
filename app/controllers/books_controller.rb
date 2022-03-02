@@ -11,6 +11,7 @@ class BooksController < ApplicationController
   def index
     @books = Book.all
     @book = Book.new#renderへ渡す値
+   # @favorite = Book.find(params[:book_id])
   end
 
 
