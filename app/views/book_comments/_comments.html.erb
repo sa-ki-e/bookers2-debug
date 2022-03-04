@@ -5,7 +5,7 @@
     <%= index_book_comment.created_at.strftime('%Y/%m/%d') %>
     <%= index_book_comment.comment %>
     <% if index_book_comment.user == current_user %>
-      <%= link_to book_book_comment_path(id: index_book_comment.id, book_id: index_book_comment.book.id), class: "btn btn-danger", method: :delete, remote: true do %><!--remote: true追加-->
+      <%= link_to book_book_comment_path(index_book_comment.book, index_book_comment), class: "btn btn-danger", method: :delete, remote: true do %><!--remote: true追加-->
         <i class="button"></i>
           Destroy
       <% end %>
