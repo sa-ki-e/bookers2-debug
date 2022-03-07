@@ -12,6 +12,10 @@ class BooksController < ApplicationController
     @books = Book.all
     @book = Book.new#renderへ渡す値
    # @favorite = Book.find(params[:book_id])
+    @q = Book.ransack(params[:q])
+    @books = @q.result(distinct: true)
+    #@books = Book.all.order(created_at: :desc)
+   
   end
 
 
