@@ -21,7 +21,6 @@
           <td><%= @book.body %></td>
           <!--ここから下追記-->
           <td>
-            <p>評価 :<%= @book.star %>点</p>
             <div id="star-rate<%= @book.id%>"></div>
             <script>
             $('#star-rate<%= @book.id%>').raty({

@@ -6,8 +6,8 @@
         <% end %>
       </ul>
     <% end %>
-    
-    
+
+
 
 <%= form_with model:book,local:true do |f| %>
   <div class="form-group">
@@ -21,33 +21,25 @@
   <div class="form-group">
     <%= f.submit class: 'btn btn-success' %>
   </div>
-  <!--この下を追記、ここから-->
   <div class="field">
-    <div>
-      <%= f.label :content %>
-      <%= f.text_field :content %>
-    </div>
-  
-    <div>
-      <%#= f.submit button_value %>
-    </div>
-  
-      <div class="form-group row" id="star">
-      <%= f.label :star,'評価 ', class:'col-md-3 col-form-label' %>
+    <div class="form-group row" id="star">
       <%= f.hidden_field :star, id: :review_star %>
     </div>
   </div>
-  
+
    <!-- 評価javascript -->
   <script>
   $('#star').raty({
     size     : 36,
     starOff:  '<%= asset_path('star-off.png') %>',
     starOn : '<%= asset_path('star-on.png') %>',
-
     scoreName: 'book[star]',
     half: false,
   });
-  </script>  
-  <!--ここまで-->
+  </script>
 <% end %>
+
+ 
+
+
+

@@ -11,7 +11,44 @@
   <div class='row'>
     <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
   		<h1>Editing Book</h1>
-  		<%= render 'form', book: @book %>
+  		
+  		<!--この下にあえて記述-->
+  		
+      <%= form_with model:@book, local: true do |f| %>
+        <div class="form-group">
+          <%= f.label :title %>
+          <%= f.text_field :title, class: 'form-control book_title' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :opinion %>
+          <%= f.text_area :body, class: 'form-control book_body' %>
+        </div>
+        <div class="form-group">
+          <%= f.submit class: 'btn btn-success' %>
+        </div>
+        
+        <div class="field">
+          <div class="form-group row" id="star">
+            <%= f.hidden_field :star, id: :review_star %>
+          </div>
+        </div>
+      
+         <!-- 評価javascript -->
+        <script>
+        $('#star').raty({
+          size     : 36,
+          starOff:  '<%= asset_path('star-off.png') %>',
+          starOn : '<%= asset_path('star-on.png') %>',
+          scoreName: 'book[star]',
+          half: false,
+          readOnly: true,
+          score: <%= @book.star %>,
+        });
+        </script>
+      <% end %>
+
+  		<!--ここまで。元々は下のrenderのみ-->
+  		<%#= render 'form', book: @book %>
   		<%= link_to 'Show', @book, class: "book_#{@book.id}" %> |
   		<%= link_to 'Back', books_path, class: "back" %>
   </div>
