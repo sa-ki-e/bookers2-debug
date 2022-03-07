@@ -19,6 +19,23 @@
           </td>
           <td><%= link_to @book.title, @book %></td>
           <td><%= @book.body %></td>
+          <!--ここから下追記-->
+          <td>
+            <p>評価 :<%= @book.star %>点</p>
+            <div id="star-rate<%= @book.id%>"></div>
+            <script>
+            $('#star-rate<%= @book.id%>').raty({
+              size      : 36,
+              starOff   : '<%= asset_path('star-off.png') %>',
+              starOn    : '<%= asset_path('star-on.png') %>',
+              half      : false,
+              readOnly: true,
+              score: <%= @book.star %>,
+            });
+            </script>
+            </div>
+          </td>
+          <!--ここまで-->
 
           <% if @user == current_user %>
           <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success edit_book_#{@book.id}" %></td>

@@ -1,5 +1,5 @@
 <table class='table table-hover table-inverse'>
-  <thead>
+  <thead class="thead-dark">
     <tr>
       <th></th>
       <th>Title</th>
@@ -16,6 +16,23 @@
         </td>
         <td><%= link_to book.title,book, class: "book_#{book.id}" %></td>
         <td><%= book.body %></td>
+        <!--ここから下追記-->
+        <td>
+          <p>評価 :<%= book.star %>点</p>
+          <div id="star-rate<%= book.id%>"></div>
+          <script>
+          $('#star-rate<%= book.id%>').raty({
+            size      : 36,
+            starOff   : '<%= asset_path('star-off.png') %>',
+            starOn    : '<%= asset_path('star-on.png') %>',
+            half      : false,
+            readOnly: true,
+            score: <%= book.star %>,
+          });
+          </script>
+          </div>
+        </td>
+        <!--ここまで-->
 
         <td id="favorite_buttons_<%= book.id %>">
 　　    　<%= render "favorites/favorites", book: book %>
@@ -32,11 +49,11 @@
           <%# end %>
         <%# end %>
         </td>-->
-        
+
           <td id="comment_counter">
 　　        <%= render "book_comments/counter", book: @book %>
           </td>
-          
+
       </tr>
     <% end %>
   </tbody>
