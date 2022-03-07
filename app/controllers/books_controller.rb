@@ -11,7 +11,7 @@ class BooksController < ApplicationController
   def index
     @books = Book.all
     @book = Book.new#renderへ渡す値
-   # @favorite = Book.find(params[:book_id])
+    #@favorite = Book.find(params[:book_id])
     @q = Book.ransack(params[:q])
     @books = @q.result(distinct: true)
     #@books = Book.all.order(created_at: :desc)
@@ -52,7 +52,7 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:title, :body, :star, :content, :categ)
+    params.require(:book).permit(:title, :body, :star, :content, :category)
   end
 
   def ensure_correct_user

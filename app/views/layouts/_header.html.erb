@@ -50,6 +50,12 @@
             <% end %>
           </li>
         <% end %>
+          <li>
+            <%= search_form_for @search, books_path do |f| %>
+              <%= f.text_field :category_cont, placeholder: '名前を入力...' %>
+              <%= f.submit ("検索する") %>
+            <% end %>
+          </li>
         </ul>
       </div>
     </div>

@@ -7,6 +7,9 @@ class UsersController < ApplicationController
     @books = @user.books
     @book = Book.new
     #@book = Book.all#books/_indexに渡す値
+    @q = Book.ransack(params[:q])
+    @books = @q.result(distinct: true)
+    #↑ransackへ渡す値
   end
 
   def index
@@ -29,7 +32,7 @@ class UsersController < ApplicationController
       render "edit"
     end
   end
-  
+
 
   private
 
