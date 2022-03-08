@@ -4,14 +4,14 @@ class BooksController < ApplicationController
   def show
     @book = Book.find(params[:id])
      @user = @book.user
-     @books = Book.new#renderへ渡す値
+     @books = Book.new#renderへの値
      @book_comment = BookComment.new#コメントを投稿するためのインスタンス変数
   end
 
   def index
     @books = Book.all
-    @book = Book.new#renderへ渡す値
-    #@favorite = Book.find(params[:book_id])
+    @book = Book.new#renderへの値
+    
     @q = Book.ransack(params[:q])
     @books = @q.result(distinct: true)
     #@books = Book.all.order(created_at: :desc)
