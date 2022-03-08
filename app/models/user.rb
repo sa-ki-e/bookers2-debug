@@ -4,19 +4,19 @@ class User < ApplicationRecord
 
   has_one_attached :profile_image
   has_many :books, dependent: :destroy
-  has_many :group_users
-  has_many :groups, through: group_users
+  has_many :group_users, class_name: "Group_User", foreign_key: "user_id", dependent: :destroy
+  #has_many :groups, through: group_users, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :book_comments, dependent: :destroy
-  
+
   # #フォローした、されたの関係
   has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
-  
+
   # #一覧画面で使う
   has_many :followings, through: :relationships, source: :followed
   has_many :followers, through: :reverse_of_relationships, source: :follower
-  
+
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :introduction, length: { maximum: 50 }
 
@@ -27,23 +27,23 @@ class User < ApplicationRecord
     end
   profile_image.variant(resize_to_limit: [x,y]).processed
   end
-  
+
   #|フォロー機能のメソッド| インスタンスメソッド
   #フォローしたときの処理
   def follow(user)
     relationships.create(followed_id: user.id)
   end
-  
+
   #フォローを外すときの処理
   def unfollow(user)
     relationships.find_by(followed_id: user.id).destroy
   end
-  
+
   #フォローしているか判定
   def following?(user)
     followings.include?(user)
   end
-  
+
   #search機能のメソッド
   def self.looks(searches,words)
     if searches == "forward_match"
@@ -56,7 +56,7 @@ class User < ApplicationRecord
       @users = User.where("name LIKE ?", "%#{words}%")
     end
   end
-  
+
   # def self.search_for(content, method)
   #   if method == 'perfect'
   #     User.where(name: content)
@@ -69,5 +69,5 @@ class User < ApplicationRecord
   #   end
   # end
 
-  
+
 end
